@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Todos from "./components/Todos";
 import Header from "./components/layout/Header";
 import AddList from "./components/AddList";
-import uuid from 'uuid';
+import About from './components/pages/About'
+import uuid from "uuid";
 class App extends React.Component {
   state = {
     todos: [
@@ -18,7 +20,7 @@ class App extends React.Component {
         completed: false
       },
       {
-        id:uuid.v4(),
+        id: uuid.v4(),
         title: "interview",
         completed: false
       }
@@ -26,14 +28,13 @@ class App extends React.Component {
   };
   //addTodo
   addTodo = title => {
-    
     const newTodo = {
-      id : uuid.v4(),
-      title ,
+      id: uuid.v4(),
+      title,
       completed: false
-    }
+    };
     this.setState({
-      todos : [...this.state.todos,newTodo]
+      todos: [...this.state.todos, newTodo]
     });
   };
 
@@ -58,17 +59,30 @@ class App extends React.Component {
   render() {
     console.log(this.state.todos);
     return (
-      <div className="App">
-        <div className="container">
-          <Header />
-          <AddList addTodo={this.addTodo} />
-          <Todos
-            todos={this.state.todos}
-            markComplete={this.markComplete}
-            delTodo={this.delTodo}
-          />
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Header />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <React.Fragment>
+                  <AddList addTodo={this.addTodo} />
+                  <Todos
+                    todos={this.state.todos}
+                    markComplete={this.markComplete}
+                    delTodo={this.delTodo}
+                  />
+                </React.Fragment>
+              )}
+            />
+            <Route
+            path="/about" component={About}
+            />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
