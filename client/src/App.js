@@ -4,38 +4,35 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Todos from "./components/Todos";
 import Header from "./components/layout/Header";
 import AddList from "./components/AddList";
-import About from './components/pages/About'
-import uuid from "uuid";
+import About from "./components/pages/About";
+import axios from "axios";
+import uuid from 'uuid';
 class App extends React.Component {
   state = {
-    todos: [
-      {
-        id: uuid.v4(),
-        title: "take out the trash",
-        completed: false
-      },
-      {
-        id: uuid.v4(),
-        title: "pani puri",
-        completed: false
-      },
-      {
-        id: uuid.v4(),
-        title: "interview",
-        completed: false
-      }
-    ]
+    todos: []
   };
+
+  componentDidMount() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then(res => this.setState({ todos: res.data }));
+  }
+
   //addTodo
   addTodo = title => {
-    const newTodo = {
-      id: uuid.v4(),
+    axios
+      .post("https://jsonplaceholder.typicode.com/todos", {
       title,
-      completed: false
-    };
-    this.setState({
-      todos: [...this.state.todos, newTodo]
-    });
+        completed: false
+      })
+      .then(res =>
+       {
+         res.data.id =uuid.v4();
+         this.setState({
+          todos: [...this.state.todos, res.data]
+        })
+       }
+      );
   };
 
   //chcekbox
@@ -77,9 +74,7 @@ class App extends React.Component {
                 </React.Fragment>
               )}
             />
-            <Route
-            path="/about" component={About}
-            />
+            <Route path="/about" component={About} />
           </div>
         </div>
       </Router>
