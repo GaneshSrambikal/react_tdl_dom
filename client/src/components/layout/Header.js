@@ -8,6 +8,8 @@ export default function Header() {
     </header>
   );
 }
+
+//style variables
 const styleHeader = {
   background: "#333",
   color: "#fff",

@@ -7,11 +7,14 @@ export default class AddList extends Component {
       title: ""
     };
   }
+  //update textbox
   handleText = e => {
     this.setState({
       title: e.target.value
     });
   };
+
+  //button event
   handleSubmit = e => {
     e.preventDefault();
     this.props.addTodo(this.state.title);
@@ -42,10 +45,7 @@ export default class AddList extends Component {
   }
 }
 
-AddList.propTypes = {
-  addTodo: PropTypes.func.isRequired
-};
-
+//style variables
 const textBoxStyle = {
   flex: "10",
   padding: "7px 20px",
@@ -60,3 +60,7 @@ const buttonStyle = {
   cursor: "pointer",
   textTransform: "Capitalize"
 };
+
+AddList.propTypes = {
+    addTodo: PropTypes.func.isRequired
+  };

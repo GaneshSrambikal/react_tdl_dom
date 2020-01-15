@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 export class TodoItem extends Component {
+  //style todo items
   getStyle = () => {
     return {
       textDecoration: this.props.todo.completed ? "line-through" : "none",
@@ -34,6 +35,8 @@ TodoItem.propTypes = {
   markComplete : PropTypes.func.isRequired,
   delTodo: PropTypes.func.isRequired
 };
+
+//style variables
 
 const buttonStyle = {
     background : '#fff',
