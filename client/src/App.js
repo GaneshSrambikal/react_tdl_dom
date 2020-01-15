@@ -6,7 +6,7 @@ import Header from "./components/layout/Header";
 import AddList from "./components/AddList";
 import About from "./components/pages/About";
 import axios from "axios";
-import uuid from 'uuid';
+import uuid from "uuid";
 class App extends React.Component {
   state = {
     todos: []
@@ -22,17 +22,15 @@ class App extends React.Component {
   addTodo = title => {
     axios
       .post("https://jsonplaceholder.typicode.com/todos", {
-      title,
+        title,
         completed: false
       })
-      .then(res =>
-       {
-         res.data.id =uuid.v4();
-         this.setState({
+      .then(res => {
+        res.data.id = uuid.v4();
+        this.setState({
           todos: [...this.state.todos, res.data]
-        })
-       }
-      );
+        });
+      });
   };
 
   //chcekbox
@@ -48,9 +46,11 @@ class App extends React.Component {
   };
   //delete task
   delTodo = id => {
-    this.setState({
-      todos: [...this.state.todos.filter(todo => todo.id !== id)]
-    });
+    axios.delete(`https://jsonplaceholder.typicode.com/todos${id}`).then(
+      this.setState({
+        todos: [...this.state.todos.filter(todo => todo.id !== id)]
+      })
+    );
   };
 
   render() {

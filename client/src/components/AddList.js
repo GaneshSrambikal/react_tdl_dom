@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 export default class AddList extends Component {
   constructor() {
     super();
@@ -41,6 +41,11 @@ export default class AddList extends Component {
     );
   }
 }
+
+AddList.propTypes = {
+  addTodo: PropTypes.func.isRequired
+};
+
 const textBoxStyle = {
   flex: "10",
   padding: "7px 20px",
