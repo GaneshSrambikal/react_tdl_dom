@@ -35,6 +35,7 @@ class App extends React.Component {
 
   //chcekbox
   markComplete = id => {
+    console.log(id);
     this.setState({
       todos: this.state.todos.map(todo => {
         if (id === todo.id) {
@@ -46,7 +47,7 @@ class App extends React.Component {
   };
   //delete task
   delTodo = id => {
-    axios.delete(`https://jsonplaceholder.typicode.com/todos${id}`).then(
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(
       this.setState({
         todos: [...this.state.todos.filter(todo => todo.id !== id)]
       })
